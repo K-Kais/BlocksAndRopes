@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Rope
+  - Block
   layers:
   - Default
   - TransparentFX
