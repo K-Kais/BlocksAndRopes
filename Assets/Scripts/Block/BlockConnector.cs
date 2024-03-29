@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class BlockConnector : BaseConnector
 {
-    [SerializeField] public Transform startBlock;
+    protected Transform startBlock;
     public Transform StartBlock => startBlock;
 
-    [SerializeField] public Transform endBlock;
+    protected Transform endBlock;
     public Transform EndBlock => endBlock;
 
     private void Update()

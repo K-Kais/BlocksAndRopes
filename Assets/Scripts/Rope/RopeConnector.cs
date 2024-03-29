@@ -12,6 +12,7 @@ public class RopeConnector : BaseConnector, IBezierCurve
     [SerializeField] private Dictionary<Transform, Transform> keyValuePairs = new Dictionary<Transform, Transform>();
     [SerializeField] private Transform holdObjects;
     protected Transform rope;
+    public Transform Rope => rope;
     private Vector3[] segmentPositions;
     private IBezierCurve bezierCurve;
     
@@ -66,5 +67,4 @@ public class RopeConnector : BaseConnector, IBezierCurve
             rope = parentTransform.GetChild(1);
         }
     }
-    public Transform GetRope() => rope;
 }
