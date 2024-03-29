@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RopeConnector : BaseConnector, BezierCurve
+public class RopeConnector : BaseConnector, IBezierCurve
 {
     [SerializeField] private int segments = 30; // Số lượng đoạn dây
     [SerializeField] private float ropeWidth = 0.1f; // Độ rộng của dây
-    [SerializeField] private float maxLength = 5f; // Chiều dài tối đa của dây
+    [SerializeField] private float maxLength; // Chiều dài tối đa của dây
     [SerializeField] private float springiness = 0.5f; // Độ đàn hồi của dây
     [SerializeField] private float curvature = 2f; // Độ cong của dây
+    [SerializeField] private Dictionary<Transform, Transform> keyValuePairs = new Dictionary<Transform, Transform>();
+    [SerializeField] private Transform holdObjects;
     protected Transform rope;
     private Vector3[] segmentPositions;
-    [SerializeField] private Transform holdObjects;
-    private BezierCurve bezierCurve;
-    //[SerializeField] private Dictionary<string, Transform> keyValuePairs = new Dictionary<string, Transform>();
+    private IBezierCurve bezierCurve;
+    
     private void Awake()
     {
         this.bezierCurve = this;
@@ -44,14 +45,16 @@ public class RopeConnector : BaseConnector, BezierCurve
     private Transform GetStartBlockInBlock(int index) => holdObjects.GetChild(index).GetChild(0);
     private Transform GetRopeInBlock(int index) => holdObjects.GetChild(index).GetChild(1);
     private Transform GetEndBlockInBlock(int index) => holdObjects.GetChild(index).GetChild(2);
-    private void SetPositionsLine(Transform StartLine, Transform EndLine)
+    private void SetPositionsLine(Transform startLine, Transform endLine)
     {
-        segmentPositions[0] = StartLine.position;
-        segmentPositions[segments - 1] = EndLine.position;
+        maxLength = Vector3.Distance(startLine.position, endLine.position);
+        curvature = ((int)maxLength / 2f) - 1f;
+        segmentPositions[0] = startLine.position;
+        segmentPositions[segments - 1] = endLine.position;
         for (int i = 1; i < segments - 1; i++)
         {
-            float t = (float)i / (segments - 1);
-            segmentPositions[i] = bezierCurve.CalculateBezierPoint(StartLine.position, EndLine.position, t, curvature);
+            float mid = (float)i / (segments - 1);
+            segmentPositions[i] = bezierCurve.CalculateBezierPoint(startLine.position, endLine.position, mid, curvature);
         }
     }
     protected virtual void RopeConnect()

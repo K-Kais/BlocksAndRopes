@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class BlockConnector : BaseConnector
 {
-    [SerializeField] protected Transform startBlock;
+    [SerializeField] public Transform startBlock;
+    public Transform StartBlock => startBlock;
 
-    [SerializeField] protected Transform endBlock;
+    [SerializeField] public Transform endBlock;
+    public Transform EndBlock => endBlock;
+
     private void Update()
     {
         BlockConnect();
@@ -22,7 +25,6 @@ public class BlockConnector : BaseConnector
             endBlock = parentTransform.GetChild(2);
         }
     }
-    public Transform GetStartBlock() => startBlock;
-    public Transform GetEndBlock() => endBlock;
-
 }
+
+

@@ -2,23 +2,22 @@
 using System;
 using UnityEngine;
 
-public class RopeMovement : BaseMovement, BezierCurve
+public class RopeMovement : BaseMovement, IBezierCurve
 {
     [SerializeField] private int segments = 30; // Số lượng đoạn dây
     [SerializeField] private float ropeWidth = 0.1f; // Độ rộng của dây
     [SerializeField] private float maxLength = 5f; // Chiều dài tối đa của dây
     [SerializeField] private float springiness = 0.5f; // Độ đàn hồi của dây
     [SerializeField] private float curvature = 2f; // Độ cong của dây
-    private BezierCurve bezierCurve;
+    private IBezierCurve bezierCurve;
 
     private LineRenderer lineRendererRope;
     private Vector3[] segmentPositions;
-
     protected override void Awake()
     {
         base.Awake();
-        if (blocksAndRopesController.RopeConnector.GetRope() == null) return;
-        var rope = blocksAndRopesController.RopeConnector.GetRope();
+        var startBlock = blocksAndRopesController.BlockConnector.StartBlock;
+        var rope = blocksAndRopesController.RopeConnector?.GetRope();
         lineRendererRope = rope.GetComponent<LineRenderer>();
         lineRendererRope.positionCount = segments;
         lineRendererRope.startWidth = ropeWidth;
@@ -31,8 +30,8 @@ public class RopeMovement : BaseMovement, BezierCurve
     {
         base.MoveObject();
 
-        var startBlock = blocksAndRopesController.BlockConnector.GetStartBlock();
-        var endBlock = blocksAndRopesController.BlockConnector.GetEndBlock();
+        var startBlock = blocksAndRopesController.BlockConnector.StartBlock;
+        var endBlock = blocksAndRopesController.BlockConnector.EndBlock;
         if (startBlock == null && endBlock == null) return;
 
         segmentPositions[0] = startBlock.transform.position;

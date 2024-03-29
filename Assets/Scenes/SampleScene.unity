@@ -2778,7 +2778,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 989963575}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.0208056, y: 2.650484, z: 0}
+  m_LocalPosition: {x: -1.11, y: -2.51, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3116,6 +3116,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c8eca0a985e084e8aa2d697941fa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  segments: 30
+  ropeWidth: 0.1
+  maxLength: 5.1804943
+  springiness: 0.5
+  curvature: 1.5
   holdObjects: {fileID: 1543368863}
 --- !u!1 &1213739665
 GameObject:
@@ -3317,8 +3322,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1a0f800f7ad7048af04bbd998d5fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startBlock: {fileID: 0}
-  endBlock: {fileID: 0}
+  startBlock: {fileID: 989963579}
+  endBlock: {fileID: 177328120}
+  a: 5
 --- !u!1 &1262377458
 GameObject:
   m_ObjectHideFlags: 0
@@ -3446,8 +3452,36 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: -1.11, y: -2.51, z: 0}
+  - {x: -1.1062359, y: -2.4601288, z: 0}
+  - {x: -1.0952984, y: -2.4139588, z: 0}
+  - {x: -1.0777184, y: -2.3714778, z: 0}
+  - {x: -1.0540272, y: -2.3326774, z: 0}
+  - {x: -1.0247566, y: -2.2975476, z: 0}
+  - {x: -0.99043804, y: -2.2660792, z: 0}
+  - {x: -0.9516022, y: -2.2382603, z: 0}
+  - {x: -0.9087813, y: -2.214083, z: 0}
+  - {x: -0.8625064, y: -2.1935372, z: 0}
+  - {x: -0.81330884, y: -2.1766129, z: 0}
+  - {x: -0.7617199, y: -2.163299, z: 0}
+  - {x: -0.70827127, y: -2.1535878, z: 0}
+  - {x: -0.65349406, y: -2.1474679, z: 0}
+  - {x: -0.5979198, y: -2.1449296, z: 0}
+  - {x: -0.54207987, y: -2.1459641, z: 0}
+  - {x: -0.4865057, y: -2.1505604, z: 0}
+  - {x: -0.43172848, y: -2.1587093, z: 0}
+  - {x: -0.3782798, y: -2.1704006, z: 0}
+  - {x: -0.3266909, y: -2.185625, z: 0}
+  - {x: -0.27749333, y: -2.204372, z: 0}
+  - {x: -0.23121841, y: -2.226632, z: 0}
+  - {x: -0.18839744, y: -2.2523954, z: 0}
+  - {x: -0.14956185, y: -2.2816525, z: 0}
+  - {x: -0.115243085, y: -2.3143923, z: 0}
+  - {x: -0.08597253, y: -2.3506064, z: 0}
+  - {x: -0.062281504, y: -2.390284, z: 0}
+  - {x: -0.044701442, y: -2.433416, z: 0}
+  - {x: -0.033763733, y: -2.4799917, z: 0}
+  - {x: -0.029999737, y: -2.530002, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -3456,7 +3490,16 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -3577,8 +3620,36 @@ LineRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Positions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 1}
+  - {x: 1.5391943, y: 2.650484, z: 0}
+  - {x: 1.5391622, y: 2.4826074, z: 0}
+  - {x: 1.5390693, y: 2.291022, z: 0}
+  - {x: 1.5389197, y: 2.0782762, z: 0}
+  - {x: 1.5387179, y: 1.8469195, z: 0}
+  - {x: 1.5384685, y: 1.5995004, z: 0}
+  - {x: 1.5381768, y: 1.3385686, z: 0}
+  - {x: 1.5378458, y: 1.0666715, z: 0}
+  - {x: 1.5374812, y: 0.78635955, z: 0}
+  - {x: 1.5370873, y: 0.50018126, z: 0}
+  - {x: 1.5366685, y: 0.21068507, z: 0}
+  - {x: 1.5362293, y: -0.07957971, z: 0}
+  - {x: 1.5357745, y: -0.36806425, z: 0}
+  - {x: 1.535308, y: -0.65221936, z: 0}
+  - {x: 1.5348349, y: -0.9294963, z: 0}
+  - {x: 1.5343596, y: -1.1973462, z: 0}
+  - {x: 1.5338864, y: -1.4532201, z: 0}
+  - {x: 1.5334201, y: -1.6945693, z: 0}
+  - {x: 1.5329651, y: -1.9188442, z: 0}
+  - {x: 1.532526, y: -2.1234968, z: 0}
+  - {x: 1.5321071, y: -2.3059776, z: 0}
+  - {x: 1.5317131, y: -2.4637372, z: 0}
+  - {x: 1.5313486, y: -2.5942278, z: 0}
+  - {x: 1.5310181, y: -2.6949, z: 0}
+  - {x: 1.5307258, y: -2.763204, z: 0}
+  - {x: 1.5304768, y: -2.7965922, z: 0}
+  - {x: 1.5302751, y: -2.792515, z: 0}
+  - {x: 1.5301254, y: -2.7484236, z: 0}
+  - {x: 1.5300323, y: -2.661769, z: 0}
+  - {x: 1.5300002, y: -2.530002, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1
@@ -3587,7 +3658,16 @@ LineRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 1
+        value: 0.1
         inSlope: 0
         outSlope: 0
         tangentMode: 0
