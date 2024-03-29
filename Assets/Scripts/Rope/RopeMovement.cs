@@ -15,8 +15,9 @@ public class RopeMovement : BaseMovement, BezierCurve
     private LineRenderer lineRendererRope;
     private Vector3[] segmentPositions;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         lineRendererRope = this.rope.GetComponent<LineRenderer>();
         lineRendererRope.positionCount = segments;
         lineRendererRope.startWidth = ropeWidth;
@@ -28,6 +29,11 @@ public class RopeMovement : BaseMovement, BezierCurve
     protected override void MoveObject()
     {
         base.MoveObject();
+
+        var startBlock = blocksAndRopesController.BlockConnector.GetStartBlock();
+        var endBlock = blocksAndRopesController.BlockConnector.GetEndBlock();
+        if (startBlock == null && endBlock == null) return;
+
         segmentPositions[0] = startBlock.transform.position;
         segmentPositions[segments - 1] = endBlock.position;
 

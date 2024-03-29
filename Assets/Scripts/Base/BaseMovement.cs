@@ -4,18 +4,25 @@ using UnityEngine;
 
 public class BaseMovement : MonoBehaviour
 {
-    [SerializeField] protected Transform startBlock;
-    [SerializeField] protected Transform endBlock;
+    [SerializeField] protected BlocksAndRopesController blocksAndRopesController;
+    protected virtual void Awake()
+    {
+        this.LoadBlocksAndRopesController();
+    }
     protected virtual void Update()
     {
         this.MoveObject();
     }
-    protected virtual void MoveObject()
+
+    protected virtual void LoadBlocksAndRopesController()
     {
-        // For override
+        if (blocksAndRopesController != null) return;
+        blocksAndRopesController = FindObjectOfType<BlocksAndRopesController>();
+        Debug.Log(transform.name + ": LoadBlocksAndRopesController", gameObject);
     }
-    protected virtual void GetBlock()
+    protected virtual void MoveObject()
     {
 
     }
+
 }

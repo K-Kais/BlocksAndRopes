@@ -27,9 +27,4 @@ public class BlockMovement : BaseMovement
             targetBlock.DOMove(mouseWorldPos - this.offset, 0.1f);
         } else targetBlock = null;
     }
-
-    protected virtual void GetBlock()
-    {
-
-    }
 }
