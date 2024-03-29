@@ -2333,7 +2333,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blocksAndRopesController: {fileID: 0}
-  rope: {fileID: 1279291458}
   segments: 20
   ropeWidth: 0.1
   maxLength: 5
@@ -3117,6 +3116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c8eca0a985e084e8aa2d697941fa68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  holdObjects: {fileID: 1543368863}
 --- !u!1 &1213739665
 GameObject:
   m_ObjectHideFlags: 0
@@ -3317,6 +3317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1a0f800f7ad7048af04bbd998d5fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startBlock: {fileID: 0}
+  endBlock: {fileID: 0}
 --- !u!1 &1262377458
 GameObject:
   m_ObjectHideFlags: 0
@@ -4238,7 +4240,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1543368863}
   m_Layer: 0
-  m_Name: Prefabs
+  m_Name: Hold
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
