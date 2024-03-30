@@ -6,7 +6,6 @@ public class RopeConnector : BaseConnector, IBezierCurve
 {
     [SerializeField] private int segments = 30; // Số lượng đoạn dây
     [SerializeField] private float maxLength; // Chiều dài tối đa của dây
-    [SerializeField] private float springiness = 0.5f; // Độ đàn hồi của dây
     [SerializeField] private float curvature = 2f; // Độ cong của dây
     [SerializeField] private Dictionary<Transform, Transform> keyValuePairs = new Dictionary<Transform, Transform>();
     [SerializeField] private Transform holdObjects;
