@@ -5,7 +5,6 @@ using UnityEngine;
 public class RopeConnector : BaseConnector, IBezierCurve
 {
     [SerializeField] private int segments = 30; // Số lượng đoạn dây
-    [SerializeField] private float ropeWidth = 0.1f; // Độ rộng của dây
     [SerializeField] private float maxLength; // Chiều dài tối đa của dây
     [SerializeField] private float springiness = 0.5f; // Độ đàn hồi của dây
     [SerializeField] private float curvature = 2f; // Độ cong của dây
@@ -13,12 +12,13 @@ public class RopeConnector : BaseConnector, IBezierCurve
     [SerializeField] private Transform holdObjects;
     protected Transform rope;
     public Transform Rope => rope;
+
     private Vector3[] segmentPositions;
-    private IBezierCurve bezierCurve;
+    private IBezierCurve iBezierCurve;
     
     private void Awake()
     {
-        this.bezierCurve = this;
+        this.iBezierCurve = this;
     }
     private void Start()
     {
@@ -31,14 +31,12 @@ public class RopeConnector : BaseConnector, IBezierCurve
     [ContextMenu("InitRopeConnector")]
     private void InitRopeConnector()
     {
-        this.bezierCurve = this;
+        this.iBezierCurve = this;
         segmentPositions = new Vector3[segments];
         for (int i = 0; i < holdObjects.childCount; i++)
         {
             var ropeLine = GetRopeInBlock(i).GetComponent<LineRenderer>();
             ropeLine.positionCount = segments;
-            ropeLine.startWidth = ropeWidth;
-            ropeLine.endWidth = ropeWidth;
             SetPositionsLine(GetStartBlockInBlock(i), GetEndBlockInBlock(i));
             ropeLine.SetPositions(segmentPositions);
         }
@@ -55,7 +53,7 @@ public class RopeConnector : BaseConnector, IBezierCurve
         for (int i = 1; i < segments - 1; i++)
         {
             float mid = (float)i / (segments - 1);
-            segmentPositions[i] = bezierCurve.CalculateBezierPoint(startLine.position, endLine.position, mid, curvature);
+            segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startLine.position, endLine.position, mid, curvature);
         }
     }
     protected virtual void RopeConnect()

@@ -9,7 +9,7 @@ public class RopeMovement : BaseMovement, IBezierCurve
     [SerializeField] private float maxLength = 5f; // Chiều dài tối đa của dây
     [SerializeField] private float springiness = 0.5f; // Độ đàn hồi của dây
     [SerializeField] private float curvature = 2f; // Độ cong của dây
-    private IBezierCurve bezierCurve;
+    private IBezierCurve iBezierCurve;
 
     private LineRenderer lineRendererRope;
     private Vector3[] segmentPositions;
@@ -21,7 +21,7 @@ public class RopeMovement : BaseMovement, IBezierCurve
         lineRendererRope.startWidth = ropeWidth;
         lineRendererRope.endWidth = ropeWidth;
         segmentPositions = new Vector3[segments];
-        bezierCurve = this;
+        iBezierCurve = this;
     }
 
     protected override void MoveObject()
@@ -37,7 +37,7 @@ public class RopeMovement : BaseMovement, IBezierCurve
         for (int i = 1; i < segments - 1; i++)
         {
             float t = (float)i / (segments - 1);
-            segmentPositions[i] = bezierCurve.CalculateBezierPoint(startBlock.position, endBlock.position, t, curvature);
+            segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startBlock.position, endBlock.position, t, curvature);
         }
 
         float currentLength = Vector3.Distance(startBlock.position, endBlock.position);
