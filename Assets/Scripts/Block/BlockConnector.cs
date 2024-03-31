@@ -10,11 +10,6 @@ public class BlockConnector : BaseConnector
     protected Transform endBlock;
     public Transform EndBlock => endBlock;
 
-    protected override void Update()
-    {
-        base.Update();
-    }
-
     protected override void ObjectConnect()
     {
         base.ObjectConnect();

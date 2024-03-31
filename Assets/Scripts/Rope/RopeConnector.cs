@@ -25,11 +25,6 @@ public class RopeConnector : BaseConnector, IBezierCurve
     {
         InitRopeConnector();
     }
-    protected override void Update()
-    {
-        base.Update();
-        ObjectConnect();
-    }
     [ContextMenu("InitRopeConnector")]
     private void InitRopeConnector()
     {
@@ -53,7 +48,7 @@ public class RopeConnector : BaseConnector, IBezierCurve
     private void SetPositionsLine(Transform startLine, Transform endLine, int segments)
     {
         maxLength = Vector3.Distance(startLine.position, endLine.position);
-        curvature = ((int)maxLength / 2f) - 1f;
+        curvature = (maxLength / 2f) - 1f;
         segmentPositions[0] = startLine.position;
         segmentPositions[segments - 1] = endLine.position;
         for (int i = 1; i < segments - 1; i++)
@@ -74,10 +69,6 @@ public class RopeConnector : BaseConnector, IBezierCurve
     protected override void ObjectConnect()
     {
         base.ObjectConnect();
-        if (parentTransform != null)
-        {
-            rope = parentTransform.GetChild(1);
-        }
-
+        if (parentTransform != null) rope = parentTransform.GetChild(1);
     }
 }

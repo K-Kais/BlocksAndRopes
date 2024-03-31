@@ -29,6 +29,7 @@ public class RopeMovement : BaseMovement, IBezierCurve
         var blockManager = blocksAndRopesController.BlockManager;
         var blockData = blockConnector.BlockCell.BlockData;
         lineRendererRope = ropeConnector.Rope.GetComponent<LineRenderer>();
+
         var curvature = blockData.curvature;
         var maxLength = blockData.maxLength;
         var segments = blockManager.Segments;

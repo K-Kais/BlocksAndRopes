@@ -16,12 +16,9 @@ public class BaseConnector : MonoBehaviour
     {
         ObjectConnect();
     }
-    protected virtual void ObjectConnect()
-    {
-        if (InputManager.Instance.OnMouseDrag) parentTransform = GetObject()?.transform.parent;
-    }
     protected virtual GameObject GetObject()
     {
+
         RaycastHit2D hit = Physics2D.Raycast(InputManager.Instance.MouseWorldPos, Vector2.zero);
         if (hit.collider != null)
         {
@@ -31,7 +28,13 @@ public class BaseConnector : MonoBehaviour
                 return @object;
             }
         }
+
+
         return null;
+    }
+    protected virtual void ObjectConnect()
+    {
+        if (InputManager.Instance.OnMouseDrag) parentTransform = GetObject()?.transform.parent;
     }
 }
 
