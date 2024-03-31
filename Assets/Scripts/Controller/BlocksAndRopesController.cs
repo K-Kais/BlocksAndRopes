@@ -15,12 +15,17 @@ public class BlocksAndRopesController : MonoBehaviour
 
     [SerializeField] protected RopeConnector ropeConnector;
     public RopeConnector RopeConnector { get => ropeConnector; }
+
+    [SerializeField] protected BlockManager blockManager;
+    public BlockManager BlockManager { get => blockManager; }
+
     private void Awake()
     {
         this.LoadBlockMovement();
         this.LoadRopeMovement();
         this.LoadBlockConnector();
         this.LoadRopeConnector();
+        this.LoadBlockManager();
     }
     protected virtual void LoadBlockMovement()
     {
@@ -47,5 +52,11 @@ public class BlocksAndRopesController : MonoBehaviour
         if (this.ropeConnector != null) return;
         this.ropeConnector = FindObjectOfType<RopeConnector>();
         Debug.Log(transform.name + ": LoadRopeConnector", gameObject);
+    }
+    protected virtual void LoadBlockManager()
+    {
+        if (this.blockManager != null) return;
+        this.blockManager = FindObjectOfType<BlockManager>();
+        Debug.Log(transform.name + ": LoadBlockManager", gameObject);
     }
 }

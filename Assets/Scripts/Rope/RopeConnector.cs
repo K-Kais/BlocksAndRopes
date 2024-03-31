@@ -1,22 +1,24 @@
 ﻿
+using System;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 
 public class RopeConnector : BaseConnector, IBezierCurve
 {
-    [SerializeField] private int segments = 30; // Số lượng đoạn dây
-    [SerializeField] private float maxLength; // Chiều dài tối đa của dây
-    [SerializeField] private float curvature = 2f; // Độ cong của dây
-    [SerializeField] private Dictionary<Transform, Transform> keyValuePairs = new Dictionary<Transform, Transform>();
-    [SerializeField] private Transform holdObjects;
+    [SerializeField] protected Transform holdObjects;
+    public Transform HoldObjects { get => holdObjects; }
+    private float maxLength;
+    private float curvature;
     protected Transform rope;
     public Transform Rope => rope;
-
+    private BlockData blockData;
     private Vector3[] segmentPositions;
     private IBezierCurve iBezierCurve;
-    
-    private void Awake()
+
+    protected override void Awake()
     {
+        base.Awake();
         this.iBezierCurve = this;
     }
     private void Start()
@@ -30,20 +32,24 @@ public class RopeConnector : BaseConnector, IBezierCurve
     [ContextMenu("InitRopeConnector")]
     private void InitRopeConnector()
     {
+        var segments = blocksAndRopesController.BlockManager.Segments;
         this.iBezierCurve = this;
         segmentPositions = new Vector3[segments];
+        blocksAndRopesController.BlockManager.ClearListBlockDatas();
         for (int i = 0; i < holdObjects.childCount; i++)
         {
-            var ropeLine = GetRopeInBlock(i).GetComponent<LineRenderer>();
+            var ropeLine = GetRopeInBlockCell(i).GetComponent<LineRenderer>();
             ropeLine.positionCount = segments;
-            SetPositionsLine(GetStartBlockInBlock(i), GetEndBlockInBlock(i));
+            SetPositionsLine(GetStartBlockInBlockCell(i), GetEndBlockInBlockCell(i), segments);
             ropeLine.SetPositions(segmentPositions);
+            SetListBlockManager(i, GetNameBlockCell(i));
         }
     }
-    private Transform GetStartBlockInBlock(int index) => holdObjects.GetChild(index).GetChild(0);
-    private Transform GetRopeInBlock(int index) => holdObjects.GetChild(index).GetChild(1);
-    private Transform GetEndBlockInBlock(int index) => holdObjects.GetChild(index).GetChild(2);
-    private void SetPositionsLine(Transform startLine, Transform endLine)
+    private Transform GetStartBlockInBlockCell(int index) => holdObjects.GetChild(index).GetChild(0);
+    private Transform GetRopeInBlockCell(int index) => holdObjects.GetChild(index).GetChild(1);
+    private Transform GetEndBlockInBlockCell(int index) => holdObjects.GetChild(index).GetChild(2);
+    private string GetNameBlockCell(int index) => holdObjects.GetChild(index).name;
+    private void SetPositionsLine(Transform startLine, Transform endLine, int segments)
     {
         maxLength = Vector3.Distance(startLine.position, endLine.position);
         curvature = ((int)maxLength / 2f) - 1f;
@@ -54,6 +60,15 @@ public class RopeConnector : BaseConnector, IBezierCurve
             float mid = (float)i / (segments - 1);
             segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startLine.position, endLine.position, mid, curvature);
         }
+    }
+    private void SetListBlockManager(int index, string name)
+    {
+        blockData = new BlockData();
+        blockData.id = index;
+        blockData.name = name;
+        blockData.curvature = curvature;
+        blockData.maxLength = maxLength;
+        blocksAndRopesController.BlockManager.SetListBlockDatas(blockData);
     }
     protected virtual void RopeConnect()
     {

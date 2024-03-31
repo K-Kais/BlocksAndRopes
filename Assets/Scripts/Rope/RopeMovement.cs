@@ -13,14 +13,9 @@ public class RopeMovement : BaseMovement, IBezierCurve
 
     private LineRenderer lineRendererRope;
     private Vector3[] segmentPositions;
-    protected void Start()
+    protected override void Awake()
     {
-        var rope = blocksAndRopesController.RopeConnector.Rope;
-        lineRendererRope = rope.GetComponent<LineRenderer>();
-        lineRendererRope.positionCount = segments;
-        lineRendererRope.startWidth = ropeWidth;
-        lineRendererRope.endWidth = ropeWidth;
-        segmentPositions = new Vector3[segments];
+        base.Awake();
         iBezierCurve = this;
     }
 

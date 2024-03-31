@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class BaseConnector : MonoBehaviour
 {
+    [SerializeField] protected BlocksAndRopesController blocksAndRopesController;
+    protected virtual void Awake()
+    {
+        blocksAndRopesController = FindObjectOfType<BlocksAndRopesController>();
+    }
+
     protected virtual GameObject GetObject()
     {
         if (InputManager.Instance.OnMouseDrag)

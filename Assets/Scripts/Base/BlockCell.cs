@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class BlockCell : MonoBehaviour
 {
-    [SerializeField] private BlockData[] blockData;
-    public BlockData[] BlockData => blockData;
+    [SerializeField] private BlockData blockData;
+    public BlockData BlockData => blockData;
 
+    public void SetData(BlockData blockData)
+    {
+        this.blockData = blockData;
+    }
 }

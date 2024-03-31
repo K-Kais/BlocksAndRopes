@@ -1,5 +1,7 @@
+using UnityEngine;
+
 [System.Serializable]
-public class BlockData 
+public class BlockData
 {
     public int id;
     public string name;
