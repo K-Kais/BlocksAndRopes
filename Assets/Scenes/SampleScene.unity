@@ -2563,11 +2563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blocksAndRopesController: {fileID: 0}
-  segments: 30
-  ropeWidth: 0.1
-  maxLength: 5
   springiness: 0.5
-  curvature: 2
 --- !u!1 &743761906
 GameObject:
   m_ObjectHideFlags: 0
@@ -2786,7 +2782,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bc41b12119c1304cb369e8b032e5105, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blocksAndRopesController: {fileID: 0}
+  blocksAndRopesController: {fileID: 1262377460}
   targetBlock: {fileID: 0}
 --- !u!1 &891855248
 GameObject:
@@ -3578,6 +3574,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blocksAndRopesController: {fileID: 1262377460}
+  blockCell: {fileID: 0}
   holdObjects: {fileID: 1543368863}
 --- !u!1 &1213739665
 GameObject:
@@ -3779,7 +3776,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1a0f800f7ad7048af04bbd998d5fae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blocksAndRopesController: {fileID: 0}
+  blocksAndRopesController: {fileID: 1262377460}
+  blockCell: {fileID: 0}
 --- !u!1 &1262377458
 GameObject:
   m_ObjectHideFlags: 0

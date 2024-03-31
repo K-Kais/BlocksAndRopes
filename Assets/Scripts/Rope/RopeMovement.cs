@@ -1,14 +1,11 @@
 ﻿using DG.Tweening;
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RopeMovement : BaseMovement, IBezierCurve
 {
-    [SerializeField] private int segments = 30; // Số lượng đoạn dây
-    [SerializeField] private float ropeWidth = 0.1f; // Độ rộng của dây
-    [SerializeField] private float maxLength = 5f; // Chiều dài tối đa của dây
     [SerializeField] private float springiness = 0.5f; // Độ đàn hồi của dây
-    [SerializeField] private float curvature = 2f; // Độ cong của dây
     private IBezierCurve iBezierCurve;
 
     private LineRenderer lineRendererRope;
@@ -22,13 +19,23 @@ public class RopeMovement : BaseMovement, IBezierCurve
     protected override void MoveObject()
     {
         base.MoveObject();
+        
+        var blockConnector = blocksAndRopesController.BlockConnector;
+        var ropeConnector = blocksAndRopesController.RopeConnector;
+        var startBlock = blockConnector.StartBlock;
+        var endBlock = blockConnector.EndBlock;
 
-        var startBlock = blocksAndRopesController.BlockConnector.StartBlock;
-        var endBlock = blocksAndRopesController.BlockConnector.EndBlock;
         if (startBlock == null && endBlock == null) return;
-        segmentPositions[0] = startBlock.transform.position;
-        segmentPositions[segments - 1] = endBlock.position;
+        var blockManager = blocksAndRopesController.BlockManager;
+        var blockData = blockConnector.BlockCell.BlockData;
+        lineRendererRope = ropeConnector.Rope.GetComponent<LineRenderer>();
+        var curvature = blockData.curvature;
+        var maxLength = blockData.maxLength;
+        var segments = blockManager.Segments;
 
+        segmentPositions = new Vector3[segments];
+        segmentPositions[0] = startBlock.position;
+        segmentPositions[segments - 1] = endBlock.position;
         for (int i = 1; i < segments - 1; i++)
         {
             float t = (float)i / (segments - 1);

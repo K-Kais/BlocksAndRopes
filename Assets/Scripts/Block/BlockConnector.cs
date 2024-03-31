@@ -10,17 +10,17 @@ public class BlockConnector : BaseConnector
     protected Transform endBlock;
     public Transform EndBlock => endBlock;
 
-    private void Update()
+    protected override void Update()
     {
-        BlockConnect();
+        base.Update();
     }
 
-    protected virtual void BlockConnect()
+    protected override void ObjectConnect()
     {
-        if (GetObject() == null) return;
-        var parentTransform = GetObject().transform.parent;
+        base.ObjectConnect();
         if (parentTransform != null)
         {
+            blockCell = parentTransform.GetComponent<BlockCell>();
             startBlock = parentTransform.GetChild(0);
             endBlock = parentTransform.GetChild(2);
         }

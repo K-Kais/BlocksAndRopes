@@ -25,9 +25,10 @@ public class RopeConnector : BaseConnector, IBezierCurve
     {
         InitRopeConnector();
     }
-    private void Update()
+    protected override void Update()
     {
-        RopeConnect();
+        base.Update();
+        ObjectConnect();
     }
     [ContextMenu("InitRopeConnector")]
     private void InitRopeConnector()
@@ -70,13 +71,13 @@ public class RopeConnector : BaseConnector, IBezierCurve
         blockData.maxLength = maxLength;
         blocksAndRopesController.BlockManager.SetListBlockDatas(blockData);
     }
-    protected virtual void RopeConnect()
+    protected override void ObjectConnect()
     {
-        if (GetObject() == null) return;
-        var parentTransform = GetObject().transform.parent;
+        base.ObjectConnect();
         if (parentTransform != null)
         {
             rope = parentTransform.GetChild(1);
         }
+
     }
 }

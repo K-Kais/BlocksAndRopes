@@ -5,27 +5,37 @@ using UnityEngine;
 public class BaseConnector : MonoBehaviour
 {
     [SerializeField] protected BlocksAndRopesController blocksAndRopesController;
+    [SerializeField] protected BlockCell blockCell;
+    public BlockCell BlockCell { get => blockCell; }
+    protected Transform parentTransform;
     protected virtual void Awake()
     {
         blocksAndRopesController = FindObjectOfType<BlocksAndRopesController>();
     }
-
+    protected virtual void Update()
+    {
+        ObjectConnect();
+    }
+    protected virtual void ObjectConnect()
+    {
+        if (InputManager.Instance.OnMouseDrag) parentTransform = GetObject().transform.parent;
+    }
     protected virtual GameObject GetObject()
     {
-        if (InputManager.Instance.OnMouseDrag)
+
+        RaycastHit2D hit = Physics2D.Raycast(InputManager.Instance.MouseWorldPos, Vector2.zero);
+        if (hit.collider != null)
         {
-            RaycastHit2D hit = Physics2D.Raycast(InputManager.Instance.MouseWorldPos, Vector2.zero);
-            if (hit.collider != null)
+            var @object = hit.collider.gameObject;
+            if (@object != null && @object.tag == "Block")
             {
-                var @object = hit.collider.gameObject;
-                if (@object != null && @object.tag == "Block")
-                {
-                    return @object;
-                }
+                return @object;
             }
-           
         }
+
+
         return null;
     }
+   
 }
 
