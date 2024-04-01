@@ -6,11 +6,14 @@ public class BlockMovement : BaseMovement
     private Vector3 direction;
     private RaycastHit2D hitBlock;
     private InputManager inputManager;
-    [SerializeField] public Transform targetBlock;
-    [SerializeField] Rigidbody2D rbBlock;
+    [SerializeField] private Transform targetBlock;
+    [SerializeField] Rigidbody2D rbTargetBlock;
+    [SerializeField] Rigidbody2D[] rbArrayBlock;
     protected override void Awake()
     {
-        //rbBlock = null;
+        rbArrayBlock = null;
+        rbTargetBlock = null;
+        targetBlock = null;
     }
     private void Start()
     {
@@ -26,21 +29,31 @@ public class BlockMovement : BaseMovement
             hitBlock = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
             if (hitBlock)
             {
-                this.targetBlock = hitBlock.collider.transform;
-                //rbBlock = targetBlock.GetComponent<Rigidbody2D>();
+                this.targetBlock = CheckTagBlock(hitBlock.collider.transform);
+                if (this.targetBlock)
+                {
+                    rbTargetBlock = targetBlock.GetComponent<Rigidbody2D>();
+                    rbArrayBlock = targetBlock.parent.GetComponentsInChildren<Rigidbody2D>();
+                    rbArrayBlock[0].bodyType = RigidbodyType2D.Dynamic;
+                    rbArrayBlock[1].bodyType = RigidbodyType2D.Dynamic;
+                }
             }
         }
-        if (inputManager.OnMouseDrag)
+        if (inputManager.OnMouseDrag && targetBlock)
         {
             this.direction = mouseWorldPos - targetBlock.position;
-            //rbBlock.velocity = this.direction.normalized * 100f;
-            targetBlock.DOMove(mouseWorldPos - this.direction, 0.1f);
+            rbTargetBlock.velocity = this.direction.normalized * 100f;
         }
-        else
+        else if (!inputManager.OnMouseDrag && rbTargetBlock)
         {
-            //rbBlock.velocity = Vector2.zero;
+            rbTargetBlock.velocity = Vector2.zero;
+            rbArrayBlock[0].bodyType = RigidbodyType2D.Kinematic;
+            rbArrayBlock[1].bodyType = RigidbodyType2D.Kinematic;
+            rbArrayBlock[0].velocity = Vector2.zero;
+            rbArrayBlock[1].velocity = Vector2.zero;
             targetBlock = null;
-            //rbBlock = null;
+            rbTargetBlock = null;
+            rbArrayBlock = null;
         }
     }
 

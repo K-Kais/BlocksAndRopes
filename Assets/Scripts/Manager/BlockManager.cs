@@ -33,6 +33,7 @@ public class BlockManager : MonoBehaviour
         blockCells.AddRange(blocksAndRopesController.RopeConnector.HoldObjects.GetComponentsInChildren<BlockCell>());
         for (int i = 0; i < blockDatas.Count; i++)
         {
+            blockCells[i].GetComponentInChildren<DistanceJoint2D>().distance = blockDatas[i].maxLength;
             blockCells[i].SetData(blockDatas[i]);
         }
     }
