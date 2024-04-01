@@ -45,25 +45,25 @@ public class RopeMovement : BaseMovement, IBezierCurve
             segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startBlock.position, endBlock.position, t, curvature);
         }
 
-        float currentLength = Vector3.Distance(startBlock.position, endBlock.position);
+        //float currentLength = Vector3.Distance(startBlock.position, endBlock.position);
         endBlock.GetComponent<DistanceJoint2D>().distance = maxLength;
-        if (currentLength > maxLength)
-        {
-            //float distanceToPull = currentLength - maxLength;
-            //Vector3 direction = (endBlock.position - startBlock.position).normalized;
-            //if (blocksAndRopesController.BlockMovement.targetBlock != startBlock)
-            //{
-            //    rbEndBlock = endBlock.GetComponent<Rigidbody2D>();
-            //    rbEndBlock.velocity = -direction * (distanceToPull * springiness * 0.5f) * 100f;
-            //}
-            //else
-            //{
-            //    rbStartBlock = startBlock.GetComponent<Rigidbody2D>();
-            //    rbStartBlock.velocity = direction * (distanceToPull * springiness * 0.5f) * 100;
-            //}
-            //startBlock.DOMove(startBlock.position + direction * (distanceToPull * springiness * 0.5f), 0.1f);
-            //endBlock.DOMove(endBlock.position - direction * (distanceToPull * springiness * 0.5f), 0.1f);
-        }
+        //if (currentLength > maxLength)
+        //{
+        //    //float distanceToPull = currentLength - maxLength;
+        //    //Vector3 direction = (endBlock.position - startBlock.position).normalized;
+        //    //if (blocksAndRopesController.BlockMovement.targetBlock != startBlock)
+        //    //{
+        //    //    rbEndBlock = endBlock.GetComponent<Rigidbody2D>();
+        //    //    rbEndBlock.velocity = -direction * (distanceToPull * springiness * 0.5f) * 100f;
+        //    //}
+        //    //else
+        //    //{
+        //    //    rbStartBlock = startBlock.GetComponent<Rigidbody2D>();
+        //    //    rbStartBlock.velocity = direction * (distanceToPull * springiness * 0.5f) * 100;
+        //    //}
+        //    //startBlock.DOMove(startBlock.position + direction * (distanceToPull * springiness * 0.5f), 0.1f);
+        //    //endBlock.DOMove(endBlock.position - direction * (distanceToPull * springiness * 0.5f), 0.1f);
+        //}
         lineRendererRope.SetPositions(segmentPositions);
     }
 }
