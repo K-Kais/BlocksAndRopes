@@ -10,11 +10,9 @@ public class RopeMovement : BaseMovement, IBezierCurve
 
     private LineRenderer lineRendererRope;
     private Vector3[] segmentPositions;
-    Rigidbody2D rbBlock;
     protected override void Awake()
     {
         base.Awake();
-        rbBlock = null;
         iBezierCurve = this;
     }
 
@@ -33,7 +31,6 @@ public class RopeMovement : BaseMovement, IBezierCurve
         lineRendererRope = ropeConnector.Rope.GetComponent<LineRenderer>();
 
         var curvature = blockData.curvature;
-        var maxLength = blockData.maxLength;
         var segments = blockManager.Segments;
 
         segmentPositions = new Vector3[segments];
@@ -44,7 +41,6 @@ public class RopeMovement : BaseMovement, IBezierCurve
             float t = (float)i / (segments - 1);
             segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startBlock.position, endBlock.position, t, curvature);
         }
-        
         lineRendererRope.SetPositions(segmentPositions);
     }
 }

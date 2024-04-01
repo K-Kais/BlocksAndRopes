@@ -10,7 +10,7 @@ public class RopeConnector : BaseConnector, IBezierCurve
     public Transform HoldObjects { get => holdObjects; }
     private float maxLength;
     private float curvature;
-    protected Transform rope;
+    [SerializeField] protected Transform rope;
     public Transform Rope => rope;
     private BlockData blockData;
     private Vector3[] segmentPositions;

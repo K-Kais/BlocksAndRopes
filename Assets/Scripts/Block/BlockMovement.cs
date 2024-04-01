@@ -11,6 +11,7 @@ public class BlockMovement : BaseMovement
     [SerializeField] Rigidbody2D[] rbArrayBlock;
     protected override void Awake()
     {
+        base.Awake();
         rbArrayBlock = null;
         rbTargetBlock = null;
         targetBlock = null;
@@ -46,7 +47,6 @@ public class BlockMovement : BaseMovement
         }
         else if (!inputManager.OnMouseDrag && rbTargetBlock)
         {
-            rbTargetBlock.velocity = Vector2.zero;
             rbArrayBlock[0].bodyType = RigidbodyType2D.Kinematic;
             rbArrayBlock[1].bodyType = RigidbodyType2D.Kinematic;
             rbArrayBlock[0].velocity = Vector2.zero;
