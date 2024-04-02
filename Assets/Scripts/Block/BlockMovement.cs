@@ -20,7 +20,6 @@ public class BlockMovement : BaseMovement
     {
         inputManager = InputManager.Instance;
     }
-    [ContextMenu("")]
     protected override void MoveObject()
     {
         base.MoveObject();

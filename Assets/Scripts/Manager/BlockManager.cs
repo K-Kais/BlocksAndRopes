@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -26,7 +27,7 @@ public class BlockManager : MonoBehaviour
     {
         SetBlockCell();
     }
-    [ContextMenu("SetBlockCell")]
+    [Button("Set Block Cell")]
     private void SetBlockCell()
     {
         blockCells.Clear();

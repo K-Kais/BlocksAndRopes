@@ -1,4 +1,5 @@
 ﻿
+using NaughtyAttributes;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -25,7 +26,7 @@ public class RopeConnector : BaseConnector, IBezierCurve
     {
         InitRopeConnector();
     }
-    [ContextMenu("InitRopeConnector")]
+    [Button("Init Rope Connector")]
     private void InitRopeConnector()
     {
         var segments = blocksAndRopesController.BlockManager.Segments;
@@ -63,7 +64,7 @@ public class RopeConnector : BaseConnector, IBezierCurve
         blockData.id = index;
         blockData.name = name;
         blockData.curvature = curvature;
-        blockData.maxLength = maxLength;
+        blockData.maxLength = maxLength + 0.1f;
         blocksAndRopesController.BlockManager.SetListBlockDatas(blockData);
     }
     protected override void ObjectConnect()
