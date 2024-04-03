@@ -35,7 +35,11 @@ public class BaseConnector : MonoBehaviour
     protected virtual void ObjectConnect()
     {
         if (InputManager.Instance.OnMouseDown) parentTransform = GetObject()?.transform.parent;
-        else if (!InputManager.Instance.OnMouseDrag) parentTransform = null;
+        else if (!InputManager.Instance.OnMouseDrag)
+        {
+            
+            parentTransform = null;
+        }
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using NaughtyAttributes;
+﻿using AYellowpaper.SerializedCollections;
+using NaughtyAttributes;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,13 +8,18 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Transform gridParent;
     [SerializeField] private int height;
     [SerializeField] private int width;
-    private Dictionary<Vector2, Transform> grid = new Dictionary<Vector2, Transform>();
-    public Dictionary<Vector2, Transform> Grid { get => grid; }
+    [SerializedDictionary("Positon Cell", "Block")]
+    public SerializedDictionary<Vector2, Transform> grid;
+    public SerializedDictionary<Vector2, Transform> Grid { get => grid; }
+    private void Start()
+    {
+        //InitGrid();
+    }
 
     [Button("Init Grid")]
     private void InitGrid()
     {
-        grid.Clear();
+        grid = new SerializedDictionary<Vector2, Transform>();
         if (gridParent.childCount > 1)
             for (int i = gridParent.childCount - 1; i > 0; i--)
                 DestroyImmediate(gridParent.GetChild(i).gameObject);

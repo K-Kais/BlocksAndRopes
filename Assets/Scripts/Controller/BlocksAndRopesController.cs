@@ -22,6 +22,9 @@ public class BlocksAndRopesController : MonoBehaviour
     [SerializeField] protected GridManager gridManager;
     public GridManager GridManager { get => gridManager; }
 
+    [SerializeField] protected BlockSnap blockSnap;
+    public BlockSnap BlockSnap { get => blockSnap; }
+
     private void Awake()
     {
         this.LoadBlockMovement();
@@ -67,5 +70,11 @@ public class BlocksAndRopesController : MonoBehaviour
         if (this.gridManager != null) return;
         this.gridManager = FindObjectOfType<GridManager>();
         Debug.Log(transform.name + ": LoadGridManager", gameObject);
+    }
+    protected virtual void LoadBlockSnap()
+    {
+        if (this.blockSnap != null) return;
+        this.blockSnap = FindObjectOfType<BlockSnap>();
+        Debug.Log(transform.name + ": LoadBlockSnap", gameObject);
     }
 }

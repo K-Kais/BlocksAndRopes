@@ -18,6 +18,7 @@ public class BlockConnector : BaseConnector
             blockCell = parentTransform.GetComponent<BlockCell>();
             startBlock = parentTransform.GetChild(0);
             endBlock = parentTransform.GetChild(2);
+            blocksAndRopesController.BlockSnap.InitSnap(parentTransform.GetChild(0), parentTransform.GetChild(2), blockCell.BlockData.maxLength);
         }
     }
     public void ConnectWithGrid()
