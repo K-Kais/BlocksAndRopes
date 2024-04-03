@@ -20,6 +20,16 @@ public class BlockConnector : BaseConnector
             endBlock = parentTransform.GetChild(2);
         }
     }
+    public void ConnectWithGrid()
+    {
+        var blockDatas = blocksAndRopesController.BlockManager.BlockDatas;
+        var blockCell = blocksAndRopesController.BlockManager.BlockCells;
+        for (int i = 0; i < blockDatas.Count; i++)
+        {
+            blocksAndRopesController.GridManager.Grid[blockDatas[i].positionStartBlock] = blockCell[i].transform.GetChild(0);
+            blocksAndRopesController.GridManager.Grid[blockDatas[i].positionEndBlock] = blockCell[i].transform.GetChild(2);
+        }
+    }
 }
 
 

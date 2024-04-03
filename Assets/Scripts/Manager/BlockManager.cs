@@ -20,22 +20,19 @@ public class BlockManager : MonoBehaviour
         blocksAndRopesController = FindObjectOfType<BlocksAndRopesController>();
     }
     public void ClearListBlockDatas() => blockDatas.Clear();
-    public void SetListBlockDatas(BlockData blockData) => blockDatas.Add(blockData);
+    public void SetBlockManagerDatas(BlockData blockData) => blockDatas.Add(blockData);
 
+    [Button("Init Rope Connector (Step 1)")]
+    private void InitRopeConnector() { blocksAndRopesController.RopeConnector.InitRopeConnector(); Debug.Log("Init Rope Connector"); }
 
-    private void OnValidate()
-    {
-        SetBlockCell();
-    }
-    [Button("Set Block Cell")]
+    [Button("Set Block Cell (Step 2)")]
     private void SetBlockCell()
     {
         blockCells.Clear();
         blockCells.AddRange(blocksAndRopesController.RopeConnector.HoldObjects.GetComponentsInChildren<BlockCell>());
-        for (int i = 0; i < blockDatas.Count; i++)
-        {
-            blockCells[i].GetComponentInChildren<DistanceJoint2D>().distance = blockDatas[i].maxLength;
-            blockCells[i].SetData(blockDatas[i]);
-        }
+        for (int i = 0; i < blockDatas.Count; i++) blockCells[i].SetData(blockDatas[i]);
+        Debug.Log("Set Block Cell");
     }
+    [Button("Connect With Grid (Step 3)")]
+    private void ConnectWithGrid() { blocksAndRopesController.BlockConnector.ConnectWithGrid(); Debug.Log("Connect With Grid"); }
 }

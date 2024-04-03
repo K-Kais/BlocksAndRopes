@@ -18,6 +18,9 @@ public class BlocksAndRopesController : MonoBehaviour
 
     [SerializeField] protected BlockManager blockManager;
     public BlockManager BlockManager { get => blockManager; }
+    
+    [SerializeField] protected GridManager gridManager;
+    public GridManager GridManager { get => gridManager; }
 
     private void Awake()
     {
@@ -58,5 +61,11 @@ public class BlocksAndRopesController : MonoBehaviour
         if (this.blockManager != null) return;
         this.blockManager = FindObjectOfType<BlockManager>();
         Debug.Log(transform.name + ": LoadBlockManager", gameObject);
+    }
+    protected virtual void LoadGridManager()
+    {
+        if (this.gridManager != null) return;
+        this.gridManager = FindObjectOfType<GridManager>();
+        Debug.Log(transform.name + ": LoadGridManager", gameObject);
     }
 }

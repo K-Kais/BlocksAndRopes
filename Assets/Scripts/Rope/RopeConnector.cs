@@ -22,12 +22,7 @@ public class RopeConnector : BaseConnector, IBezierCurve
         base.Awake();
         this.iBezierCurve = this;
     }
-    private void Start()
-    {
-        InitRopeConnector();
-    }
-    [Button("Init Rope Connector")]
-    private void InitRopeConnector()
+    public void InitRopeConnector()
     {
         var segments = blocksAndRopesController.BlockManager.Segments;
         this.iBezierCurve = this;
@@ -39,7 +34,7 @@ public class RopeConnector : BaseConnector, IBezierCurve
             ropeLine.positionCount = segments;
             SetPositionsLine(GetStartBlockInBlockCell(i), GetEndBlockInBlockCell(i), segments);
             ropeLine.SetPositions(segmentPositions);
-            SetListBlockManager(i, GetNameBlockCell(i));
+            SetBlockData(i, GetNameBlockCell(i), GetStartBlockInBlockCell(i), GetEndBlockInBlockCell(i));
         }
     }
     private Transform GetStartBlockInBlockCell(int index) => holdObjects.GetChild(index).GetChild(0);
@@ -58,15 +53,19 @@ public class RopeConnector : BaseConnector, IBezierCurve
             segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startLine.position, endLine.position, mid, curvature);
         }
     }
-    private void SetListBlockManager(int index, string name)
+    private void SetBlockData(int index, string name, Transform startBlock, Transform endBlock)
     {
         blockData = new BlockData();
         blockData.id = index;
         blockData.name = name;
         blockData.curvature = curvature;
         blockData.maxLength = maxLength + 0.1f;
-        blocksAndRopesController.BlockManager.SetListBlockDatas(blockData);
+        blockData.positionStartBlock = startBlock.position;
+        blockData.positionEndBlock = endBlock.position;
+        endBlock.GetComponent<DistanceJoint2D>().distance = blockData.maxLength;
+        blocksAndRopesController.BlockManager.SetBlockManagerDatas(blockData);
     }
+
     protected override void ObjectConnect()
     {
         base.ObjectConnect();

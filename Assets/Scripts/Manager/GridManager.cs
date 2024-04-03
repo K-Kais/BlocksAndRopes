@@ -7,14 +7,15 @@ public class GridManager : MonoBehaviour
     [SerializeField] private Transform gridParent;
     [SerializeField] private int height;
     [SerializeField] private int width;
-    private Dictionary<Vector2, Transform> circleCells = new Dictionary<Vector2, Transform>();
+    private Dictionary<Vector2, Transform> grid = new Dictionary<Vector2, Transform>();
+    public Dictionary<Vector2, Transform> Grid { get => grid; }
 
-    [Button("Set Grid")]
-    private void SetGrid()
+    [Button("Init Grid")]
+    private void InitGrid()
     {
-        circleCells.Clear();
-        if (gridParent.childCount > 1) 
-            for (int i = gridParent.childCount - 1; i > 0; i--) 
+        grid.Clear();
+        if (gridParent.childCount > 1)
+            for (int i = gridParent.childCount - 1; i > 0; i--)
                 DestroyImmediate(gridParent.GetChild(i).gameObject);
 
         Vector2 originPosition = new Vector2(-width / 2f + 0.5f + ((width % 2 == 0) ? 0.5f : 0),
@@ -32,21 +33,12 @@ public class GridManager : MonoBehaviour
             circleCell.transform.parent = gridParent.transform;
             circleCell.transform.position = cellPosition;
             circleCell.gameObject.SetActive(true);
-            circleCells.Add(cellPosition, null);
-            Debug.Log(cellPosition);
+            grid.Add(cellPosition, null);
         }
-
+        Debug.Log("Set Grid");
     }
 
-    [Button("Get Circle Cells")]
-    private void GetCircleCells()
-    {
-        circleCells.Clear();
-        for (int i = 1; i <= gridParent.childCount; i++)
-        {
-            circleCells.Add((Vector2)gridParent.GetChild(i).transform.position, null);
-            Debug.Log(circleCells[(Vector2)gridParent.GetChild(i).transform.position]);
-        }
-    }
+    [Button("Debug Grid")]
+    private void DebugGrid() { foreach (var cell in grid) Debug.Log(cell, cell.Value); }
 
 }
