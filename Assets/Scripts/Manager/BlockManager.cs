@@ -15,9 +15,11 @@ public class BlockManager : MonoBehaviour
 
     [SerializeField] protected int segments = 30;
     public int Segments { get => segments; }
-    private void Awake()
+    protected virtual void LoadBlocksAndRopesController()
     {
+        if (blocksAndRopesController != null) return;
         blocksAndRopesController = FindObjectOfType<BlocksAndRopesController>();
+        Debug.Log(transform.name + ": LoadBlocksAndRopesController", gameObject);
     }
     public void ClearListBlockDatas() => blockDatas.Clear();
     public void SetBlockManagerDatas(BlockData blockData) => blockDatas.Add(blockData);

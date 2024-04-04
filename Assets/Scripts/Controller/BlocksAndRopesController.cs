@@ -18,7 +18,7 @@ public class BlocksAndRopesController : MonoBehaviour
 
     [SerializeField] protected BlockManager blockManager;
     public BlockManager BlockManager { get => blockManager; }
-    
+
     [SerializeField] protected GridManager gridManager;
     public GridManager GridManager { get => gridManager; }
 

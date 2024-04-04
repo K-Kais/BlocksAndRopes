@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,39 +8,31 @@ public class BaseConnector : MonoBehaviour
     [SerializeField] protected BlocksAndRopesController blocksAndRopesController;
     [SerializeField] protected BlockCell blockCell;
     public BlockCell BlockCell { get => blockCell; }
-    protected Transform parentTransform;
+    [SerializeField] protected static Transform parentTransform;
     protected virtual void Awake()
     {
-        blocksAndRopesController = FindObjectOfType<BlocksAndRopesController>();
+        this.LoadBlocksAndRopesController();
     }
     protected virtual void Update()
     {
-        ObjectConnect();
+        ObjectConnect(() => { });
     }
-    protected virtual GameObject GetObject()
+    protected virtual void LoadBlocksAndRopesController()
     {
-
-        RaycastHit2D hit = Physics2D.Raycast(InputManager.Instance.MouseWorldPos, Vector2.zero);
-        if (hit.collider != null)
-        {
-            var @object = hit.collider.gameObject;
-            if (@object != null && @object.tag == "Block")
-            {
-                return @object;
-            }
-        }
-
-
-        return null;
+        if (blocksAndRopesController != null) return;
+        blocksAndRopesController = FindObjectOfType<BlocksAndRopesController>();
+        Debug.Log(transform.name + ": LoadBlocksAndRopesController", gameObject);
     }
-    protected virtual void ObjectConnect()
+
+    protected virtual void ObjectConnect(Action callback)
     {
-        if (InputManager.Instance.OnMouseDown) parentTransform = GetObject()?.transform.parent;
-        else if (!InputManager.Instance.OnMouseDrag)
-        {
-            
-            parentTransform = null;
-        }
+        if (parentTransform == null) return;
+        callback();
+        // For override
     }
+
+    public void SetParentTransform(Transform target) { parentTransform = target.parent; }
+    public void SetParentTransform() => parentTransform = null;
+
 }
 

@@ -5,12 +5,9 @@ using UnityEngine;
 public class BaseMovement : MonoBehaviour
 {
     [SerializeField] protected BlocksAndRopesController blocksAndRopesController;
-    protected Rigidbody2D rbStartBlock;
-    protected Rigidbody2D rbEndBlock;
     protected virtual void Awake()
     {
         this.LoadBlocksAndRopesController();
-        rbEndBlock = null; rbStartBlock = null;
     }
     protected virtual void Update()
     {

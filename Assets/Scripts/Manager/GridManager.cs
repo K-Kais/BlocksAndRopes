@@ -11,10 +11,6 @@ public class GridManager : MonoBehaviour
     [SerializedDictionary("Positon Cell", "Block")]
     public SerializedDictionary<Vector2, Transform> grid;
     public SerializedDictionary<Vector2, Transform> Grid { get => grid; }
-    private void Start()
-    {
-        //InitGrid();
-    }
 
     [Button("Init Grid")]
     private void InitGrid()
@@ -46,5 +42,10 @@ public class GridManager : MonoBehaviour
 
     [Button("Debug Grid")]
     private void DebugGrid() { foreach (var cell in grid) Debug.Log(cell, cell.Value); }
+    public void UpdateGrid(Vector2 oldKey, Vector3 newKey)
+    {
+        grid[newKey] = grid[oldKey];
+        grid[oldKey] = null;
+    }
 
 }

@@ -66,9 +66,8 @@ public class RopeConnector : BaseConnector, IBezierCurve
         blocksAndRopesController.BlockManager.SetBlockManagerDatas(blockData);
     }
 
-    protected override void ObjectConnect()
+    protected override void ObjectConnect(Action callback)
     {
-        base.ObjectConnect();
-        if (parentTransform != null) rope = parentTransform.GetChild(1);
+        base.ObjectConnect(() => { rope = parentTransform.GetChild(1); });
     }
 }

@@ -30,6 +30,7 @@ public class BlockMovement : BaseMovement
             if (hitBlock)
             {
                 this.targetBlock = CheckTagBlock(hitBlock.collider.transform);
+                blocksAndRopesController.BlockConnector.SetParentTransform(this.targetBlock);
                 if (this.targetBlock)
                 {
                     rbTargetBlock = targetBlock.GetComponent<Rigidbody2D>();
@@ -46,6 +47,7 @@ public class BlockMovement : BaseMovement
         }
         else if (!inputManager.OnMouseDrag && rbTargetBlock)
         {
+            blocksAndRopesController.BlockSnap.InitSnap(blocksAndRopesController.BlockConnector.StartBlock, blocksAndRopesController.BlockConnector.EndBlock, 0);
             rbArrayBlock[0].bodyType = RigidbodyType2D.Kinematic;
             rbArrayBlock[1].bodyType = RigidbodyType2D.Kinematic;
             rbArrayBlock[0].velocity = Vector2.zero;
@@ -53,6 +55,7 @@ public class BlockMovement : BaseMovement
             targetBlock = null;
             rbTargetBlock = null;
             rbArrayBlock = null;
+            blocksAndRopesController.BlockConnector.SetParentTransform();
         }
     }
 

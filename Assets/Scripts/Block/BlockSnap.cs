@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -15,32 +16,37 @@ public class BlockSnap : MonoBehaviour
     {
         Snap();
     }
+    protected virtual void LoadBlocksAndRopesController()
+    {
+        if (blocksAndRopesController != null) return;
+        blocksAndRopesController = FindObjectOfType<BlocksAndRopesController>();
+        Debug.Log(transform.name + ": LoadBlocksAndRopesController", gameObject);
+    }
     private void Snap()
     {
         if (blocks.Length > 0)
         {
             var grid = blocksAndRopesController.GridManager.Grid;
             float distance = 0;
-            Vector3 destination = Vector3.zero;
             foreach (var block in blocks)
             {
-                Debug.Log(blocksAndRopesController.GridManager.Grid.Count);
+                Vector2 oldKey = grid.FirstOrDefault(pair => pair.Value == block).Key;
+                Vector2 newKey = Vector2.zero;
                 foreach (var cell in grid)
                 {
-                    
-                    if (!cell.Value)
+                    if (!cell.Value || oldKey == cell.Key)
                     {
                         if (distance == 0) distanceNear = Vector2.Distance(block.position, cell.Key);
                         distance = Vector2.Distance(block.position, cell.Key);
-                        if (distanceNear > distance) { distanceNear = distance; destination = cell.Key; }
+                        if (distanceNear > distance) { distanceNear = distance; newKey = cell.Key; }
                     }
-
                 }
-                block.DOMove(destination, 0.5f);
+                block.DOMove(newKey, 0.2f);
                 distance = 0;
-                blocks = new Transform[0];
+                distanceNear = 0;
+                blocksAndRopesController.GridManager.UpdateGrid(oldKey, newKey);
             }
-
+            blocks = new Transform[0];
         }
     }
     public void InitSnap(Transform startBlock, Transform endBlock, float distanceSnap)

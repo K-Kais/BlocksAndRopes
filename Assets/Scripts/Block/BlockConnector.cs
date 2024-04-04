@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,16 +11,15 @@ public class BlockConnector : BaseConnector
     protected Transform endBlock;
     public Transform EndBlock => endBlock;
 
-    protected override void ObjectConnect()
+    protected override void ObjectConnect(Action callback)
     {
-        base.ObjectConnect();
-        if (parentTransform != null)
+        base.ObjectConnect(() =>
         {
             blockCell = parentTransform.GetComponent<BlockCell>();
             startBlock = parentTransform.GetChild(0);
             endBlock = parentTransform.GetChild(2);
-            blocksAndRopesController.BlockSnap.InitSnap(parentTransform.GetChild(0), parentTransform.GetChild(2), blockCell.BlockData.maxLength);
-        }
+           
+        });
     }
     public void ConnectWithGrid()
     {
