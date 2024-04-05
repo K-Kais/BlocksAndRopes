@@ -38,7 +38,8 @@ public class BlockSnap : MonoBehaviour
                     {
                         if (distance == 0) distanceNear = Vector2.Distance(block.position, cell.Key);
                         distance = Vector2.Distance(block.position, cell.Key);
-                        if (distanceNear > distance) { distanceNear = distance; newKey = cell.Key; }
+                        if (distanceNear >= distance) { distanceNear = distance; newKey = cell.Key; }
+                        if (distanceNear <= 0.5f) break;
                     }
                 }
                 block.DOMove(newKey, 0.2f);

@@ -42,10 +42,10 @@ public class GridManager : MonoBehaviour
 
     [Button("Debug Grid")]
     private void DebugGrid() { foreach (var cell in grid) Debug.Log(cell, cell.Value); }
-    public void UpdateGrid(Vector2 oldKey, Vector3 newKey)
+    public void UpdateGrid(Vector2 oldKey, Vector2 newKey)
     {
         grid[newKey] = grid[oldKey];
-        grid[oldKey] = null;
+        if (newKey != oldKey) grid[oldKey] = null;
     }
 
 }
