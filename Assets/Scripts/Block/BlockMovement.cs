@@ -44,7 +44,7 @@ public class BlockMovement : BaseMovement
         if (inputManager.OnMouseDrag && targetBlock)
         {
             this.direction = mouseWorldPos - targetBlock.position;
-            rbTargetBlock.velocity = this.direction.normalized * 100f;
+            rbTargetBlock.velocity = this.direction.normalized * 400f;
         }
         else if (!inputManager.OnMouseDrag && rbTargetBlock)
         {
