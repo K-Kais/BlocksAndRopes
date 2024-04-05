@@ -1,7 +1,7 @@
 ﻿using DG.Tweening;
-using System;
 using Unity.VisualScripting;
 using UnityEngine;
+
 
 public class RopeMovement : BaseMovement, IBezierCurve
 {
@@ -33,14 +33,19 @@ public class RopeMovement : BaseMovement, IBezierCurve
         var curvature = blockData.curvature;
         var segments = blockManager.Segments;
 
-        segmentPositions = new Vector3[segments];
-        segmentPositions[0] = startBlock.position;
-        segmentPositions[segments - 1] = endBlock.position;
-        for (int i = 1; i < segments - 1; i++)
+        segmentPositions = new Vector3[segments];      
+        lineRendererRope.GetPositions(segmentPositions);
+        // DOTween 
+        for (int i = 0; i < segments; i++)
         {
             float t = (float)i / (segments - 1);
-            segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startBlock.position, endBlock.position, t, curvature);
+            segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startBlock.position, endBlock.position, t, curvature, blockData.maxLength);
+            int index = i; // Lưu giữ giá trị index bên ngoài lambda expression (Một vị trí riêng biệt)
+            DOTween.To(() => segmentPositions[index], x => segmentPositions[index] = x, segmentPositions[i], 0.2f)
+                .OnUpdate(() => lineRendererRope.SetPositions(segmentPositions)).OnComplete(() =>
+                {
+                    segmentPositions.Free();
+                }); 
         }
-        lineRendererRope.SetPositions(segmentPositions);
     }
 }

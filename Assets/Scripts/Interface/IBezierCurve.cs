@@ -1,10 +1,13 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public interface IBezierCurve
 {
-    public Vector3 CalculateBezierPoint(Vector3 start, Vector3 end, float mid, float curve)
+    public Vector3 CalculateBezierPoint(Vector3 start, Vector3 end, float mid, float curve, int maxDistance)
     {
-        
+        float distance = Vector3.Distance(start, end);
+        if (distance >= maxDistance - 0.1f) curve = 0;
+        else curve /= distance;
+
         float u = 1 - mid;
         float tt = mid * mid;
         float uu = u * u;

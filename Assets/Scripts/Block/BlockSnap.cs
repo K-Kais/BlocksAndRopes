@@ -42,7 +42,7 @@ public class BlockSnap : MonoBehaviour
                         if (distanceNear <= 0.5f) break;
                     }
                 }
-                block.DOMove(newKey, 0.2f);
+                block.DOMove(newKey, 0.5f);
                 distance = 0;
                 distanceNear = 0;
                 blocksAndRopesController.GridManager.UpdateGrid(oldKey, newKey);

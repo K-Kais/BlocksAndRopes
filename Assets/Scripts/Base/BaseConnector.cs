@@ -31,7 +31,7 @@ public class BaseConnector : MonoBehaviour
         // For override
     }
 
-    public void SetParentTransform(Transform target) { parentTransform = target.parent; }
+    public void SetParentTransform(Transform target) { parentTransform = target?.parent; }
     public void SetParentTransform() => parentTransform = null;
 
 }

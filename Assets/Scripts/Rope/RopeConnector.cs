@@ -44,13 +44,13 @@ public class RopeConnector : BaseConnector, IBezierCurve
     private void SetPositionsLine(Transform startLine, Transform endLine, int segments)
     {
         maxLength = Vector3.Distance(startLine.position, endLine.position);
-        curvature = (maxLength / 2f) - 1f;
+        curvature = (maxLength / 2f) + 0.5f;
         segmentPositions[0] = startLine.position;
         segmentPositions[segments - 1] = endLine.position;
         for (int i = 1; i < segments - 1; i++)
         {
             float mid = (float)i / (segments - 1);
-            segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startLine.position, endLine.position, mid, curvature);
+            segmentPositions[i] = iBezierCurve.CalculateBezierPoint(startLine.position, endLine.position, mid, curvature, (int)maxLength);
         }
     }
     private void SetBlockData(int index, string name, Transform startBlock, Transform endBlock)
@@ -59,7 +59,7 @@ public class RopeConnector : BaseConnector, IBezierCurve
         blockData.id = index;
         blockData.name = name;
         blockData.curvature = curvature;
-        blockData.maxLength = maxLength + 0.1f;
+        blockData.maxLength = (int)maxLength;
         blockData.positionStartBlock = startBlock.position;
         blockData.positionEndBlock = endBlock.position;
         endBlock.GetComponent<DistanceJoint2D>().distance = blockData.maxLength;
