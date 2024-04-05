@@ -37,6 +37,7 @@ public class BlockMovement : BaseMovement
                     rbArrayBlock = targetBlock.parent.GetComponentsInChildren<Rigidbody2D>();
                     rbArrayBlock[0].bodyType = RigidbodyType2D.Dynamic;
                     rbArrayBlock[1].bodyType = RigidbodyType2D.Dynamic;
+                    //blocksAndRopesController.RopeMovement.RemoveTweens();
                 }
             }
         }

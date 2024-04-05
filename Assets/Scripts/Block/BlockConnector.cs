@@ -18,7 +18,7 @@ public class BlockConnector : BaseConnector
             blockCell = parentTransform.GetComponent<BlockCell>();
             startBlock = parentTransform.GetChild(0);
             endBlock = parentTransform.GetChild(2);
-           
+            
         });
     }
     public void ConnectWithGrid()
@@ -30,6 +30,11 @@ public class BlockConnector : BaseConnector
             blocksAndRopesController.GridManager.Grid[blockDatas[i].positionStartBlock] = blockCell[i].transform.GetChild(0);
             blocksAndRopesController.GridManager.Grid[blockDatas[i].positionEndBlock] = blockCell[i].transform.GetChild(2);
         }
+    }
+    public void SetBlock()
+    {
+        startBlock = null;
+        endBlock = null;
     }
 }
 

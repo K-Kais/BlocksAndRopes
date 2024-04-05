@@ -34,5 +34,8 @@ public class BaseConnector : MonoBehaviour
     public void SetParentTransform(Transform target) { parentTransform = target?.parent; }
     public void SetParentTransform() => parentTransform = null;
 
+
+
+
 }
 
