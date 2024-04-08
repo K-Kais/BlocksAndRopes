@@ -23,19 +23,13 @@ public class BaseConnector : MonoBehaviour
         blocksAndRopesController = FindObjectOfType<BlocksAndRopesController>();
         Debug.Log(transform.name + ": LoadBlocksAndRopesController", gameObject);
     }
-
     protected virtual void ObjectConnect(Action callback)
     {
         if (parentTransform == null) return;
         callback();
         // For override
     }
-
     public void SetParentTransform(Transform target) { parentTransform = target?.parent; }
     public void SetParentTransform() => parentTransform = null;
-
-
-
-
 }
 

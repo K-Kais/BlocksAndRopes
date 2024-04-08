@@ -65,9 +65,5 @@ public class RopeConnector : BaseConnector, IBezierCurve
         endBlock.GetComponent<DistanceJoint2D>().distance = blockData.maxLength;
         blocksAndRopesController.BlockManager.SetBlockManagerDatas(blockData);
     }
-
-    protected override void ObjectConnect(Action callback)
-    {
-        base.ObjectConnect(() => { rope = parentTransform.GetChild(1); });
-    }
+    protected override void ObjectConnect(Action callback) => base.ObjectConnect(() => { rope = parentTransform.GetChild(1); });
 }

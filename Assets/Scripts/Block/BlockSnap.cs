@@ -42,10 +42,20 @@ public class BlockSnap : MonoBehaviour
                         if (distanceNear <= 0.5f) break;
                     }
                 }
-                block.DOMove(newKey, 0.4f).OnComplete(() =>
+                if (!block.gameObject.GetComponent<SpriteRenderer>().enabled)
                 {
-                    blocksAndRopesController.BlockConnector.SetBlock();
-                    blocksAndRopesController.RopeMovement.RemoveTweens();
+                    var rb = block.GetComponent<Rigidbody2D>();
+                    rb.bodyType = RigidbodyType2D.Dynamic;
+                    rb.gravityScale = Random.Range(15, 20);
+                    block.GetComponent<CompositeCollider2D>().isTrigger = true;
+                    blocksAndRopesController.BlockMovement.targetBlock = null;
+                }
+                else block.DOMove(newKey, 0.4f).OnComplete(() =>
+                {
+
+                    //blocksAndRopesController.BlockConnector.SetBlock();
+                    //blocksAndRopesController.RopeMovement.RemoveTweens();
+
                 });
                 distance = 0;
                 distanceNear = 0;

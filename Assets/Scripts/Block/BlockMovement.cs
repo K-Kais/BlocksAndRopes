@@ -1,4 +1,4 @@
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
 public class BlockMovement : BaseMovement
@@ -6,7 +6,7 @@ public class BlockMovement : BaseMovement
     private Vector3 direction;
     private RaycastHit2D hitBlock;
     private InputManager inputManager;
-    [SerializeField] private Transform targetBlock;
+    [SerializeField] public Transform targetBlock;
     [SerializeField] Rigidbody2D rbTargetBlock;
     [SerializeField] Rigidbody2D[] rbArrayBlock;
     protected override void Awake()
@@ -26,7 +26,7 @@ public class BlockMovement : BaseMovement
         var mouseWorldPos = inputManager.MouseWorldPos;
         if (inputManager.OnMouseDown)
         {
-            hitBlock = Physics2D.Raycast(mouseWorldPos, Vector2.zero);
+            hitBlock = Physics2D.Raycast(mouseWorldPos, Vector2.zero, Mathf.Infinity, LayerMask.GetMask("Block"));
             if (hitBlock)
             {
                 this.targetBlock = CheckTagBlock(hitBlock.collider.transform);
@@ -37,14 +37,14 @@ public class BlockMovement : BaseMovement
                     rbArrayBlock = targetBlock.parent.GetComponentsInChildren<Rigidbody2D>();
                     rbArrayBlock[0].bodyType = RigidbodyType2D.Dynamic;
                     rbArrayBlock[1].bodyType = RigidbodyType2D.Dynamic;
-                    //blocksAndRopesController.RopeMovement.RemoveTweens();
+                    blocksAndRopesController.RopeMovement.RemoveTweens();
                 }
             }
         }
         if (inputManager.OnMouseDrag && targetBlock)
         {
             this.direction = mouseWorldPos - targetBlock.position;
-            rbTargetBlock.velocity = this.direction.normalized * 400f;
+            rbTargetBlock.velocity = this.direction.normalized * 300f;
         }
         else if (!inputManager.OnMouseDrag && rbTargetBlock)
         {

@@ -37,6 +37,8 @@ public class GridManager : MonoBehaviour
             circleCell.gameObject.SetActive(true);
             grid.Add(cellPosition, null);
         }
+        gridParent.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
+        gridParent.GetComponent<BoxCollider2D>().offset = new Vector2((width % 2 == 0) ? 0.5f : 0, (height % 2 == 0) ? 0.5f : 0);
         Debug.Log("Set Grid");
     }
 
