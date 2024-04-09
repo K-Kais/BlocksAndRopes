@@ -28,6 +28,7 @@ public class BlockSnap : MonoBehaviour
         {
             var grid = blocksAndRopesController.GridManager.Grid;
             float distance = 0;
+            int index = 0;
             foreach (var block in blocks)
             {
                 Vector2 oldKey = grid.FirstOrDefault(pair => pair.Value == block).Key;
@@ -42,21 +43,12 @@ public class BlockSnap : MonoBehaviour
                         if (distanceNear <= 0.5f) break;
                     }
                 }
-                if (!block.gameObject.GetComponent<SpriteRenderer>().enabled)
+                if (block.gameObject.GetComponent<SpriteRenderer>().enabled)
                 {
-                    var rb = block.GetComponent<Rigidbody2D>();
-                    rb.bodyType = RigidbodyType2D.Dynamic;
-                    rb.gravityScale = Random.Range(15, 20);
-                    block.GetComponent<CompositeCollider2D>().isTrigger = true;
-                    blocksAndRopesController.BlockMovement.targetBlock = null;
+                    block.transform.parent.GetComponent<BlockCell>().SetData(index++, newKey);
+                    block.DOMove(newKey, 0.4f);
+                    block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
                 }
-                else block.DOMove(newKey, 0.4f).OnComplete(() =>
-                {
-
-                    //blocksAndRopesController.BlockConnector.SetBlock();
-                    //blocksAndRopesController.RopeMovement.RemoveTweens();
-
-                });
                 distance = 0;
                 distanceNear = 0;
                 blocksAndRopesController.GridManager.UpdateGrid(oldKey, newKey);

@@ -37,7 +37,6 @@ public class BlockMovement : BaseMovement
                     rbArrayBlock = targetBlock.parent.GetComponentsInChildren<Rigidbody2D>();
                     rbArrayBlock[0].bodyType = RigidbodyType2D.Dynamic;
                     rbArrayBlock[1].bodyType = RigidbodyType2D.Dynamic;
-                    blocksAndRopesController.RopeMovement.RemoveTweens();
                 }
             }
         }
@@ -49,8 +48,6 @@ public class BlockMovement : BaseMovement
         else if (!inputManager.OnMouseDrag && rbTargetBlock)
         {
             blocksAndRopesController.BlockSnap.InitSnap(blocksAndRopesController.BlockConnector.StartBlock, blocksAndRopesController.BlockConnector.EndBlock, 0);
-            rbArrayBlock[0].bodyType = RigidbodyType2D.Kinematic;
-            rbArrayBlock[1].bodyType = RigidbodyType2D.Kinematic;
             rbArrayBlock[0].velocity = Vector2.zero;
             rbArrayBlock[1].velocity = Vector2.zero;
             targetBlock = null;
@@ -66,4 +63,5 @@ public class BlockMovement : BaseMovement
         else return null;
 
     }
+    public void SetTargetBlock() => targetBlock = null;
 }

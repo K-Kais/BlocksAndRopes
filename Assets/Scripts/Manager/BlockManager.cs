@@ -13,8 +13,8 @@ public class BlockManager : MonoBehaviour
     [SerializeField] protected List<BlockCell> blockCells;
     public List<BlockCell> BlockCells { get => blockCells; }
 
-    [SerializeField] protected int segments = 30;
-    public int Segments { get => segments; }
+    [SerializeField] protected const int SEGMENTCOUNT = 30;
+    public int SegmentCount { get => SEGMENTCOUNT; }
     protected virtual void LoadBlocksAndRopesController()
     {
         if (blocksAndRopesController != null) return;

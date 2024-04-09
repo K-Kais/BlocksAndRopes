@@ -7,8 +7,8 @@ public class BlocksAndRopesController : MonoBehaviour
     [SerializeField] protected BlockMovement blockMovement;
     public BlockMovement BlockMovement { get => blockMovement; }
 
-    [SerializeField] protected RopeMovement ropeMovement;
-    public RopeMovement RopeMovement { get => ropeMovement; }
+    //[SerializeField] protected RopeMovement ropeMovement;
+    //public RopeMovement RopeMovement { get => ropeMovement; }
 
     [SerializeField] protected BlockConnector blockConnector;
     public BlockConnector BlockConnector { get => blockConnector; }
@@ -28,7 +28,7 @@ public class BlocksAndRopesController : MonoBehaviour
     private void Awake()
     {
         this.LoadBlockMovement();
-        this.LoadRopeMovement();
+        //this.LoadRopeMovement();
         this.LoadBlockConnector();
         this.LoadRopeConnector();
         this.LoadBlockManager();
@@ -40,12 +40,12 @@ public class BlocksAndRopesController : MonoBehaviour
         Debug.Log(transform.name + ": LoadBlockMovement", gameObject);
     }
 
-    protected virtual void LoadRopeMovement()
-    {
-        if (this.RopeMovement != null) return;
-        this.ropeMovement = FindObjectOfType<RopeMovement>();
-        Debug.Log(transform.name + ": LoadRopeMovement", gameObject);
-    }
+    //protected virtual void LoadRopeMovement()
+    //{
+    //    if (this.RopeMovement != null) return;
+    //    this.ropeMovement = FindObjectOfType<RopeMovement>();
+    //    Debug.Log(transform.name + ": LoadRopeMovement", gameObject);
+    //}
     protected virtual void LoadBlockConnector()
     {
         if (this.blockConnector != null) return;

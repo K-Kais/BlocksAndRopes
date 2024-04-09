@@ -7,8 +7,10 @@ public class BlockCell : MonoBehaviour
     [SerializeField] private BlockData blockData;
     public BlockData BlockData => blockData;
 
-    public void SetData(BlockData blockData)
+    public void SetData(BlockData blockData) => this.blockData = blockData;
+    public void SetData(int index, Vector2 pos)
     {
-        this.blockData = blockData;
+        if (index == 0) blockData.positionStartBlock = pos;
+        else blockData.positionEndBlock = pos;
     }
 }

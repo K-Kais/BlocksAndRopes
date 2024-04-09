@@ -49,5 +49,5 @@ public class GridManager : MonoBehaviour
         grid[newKey] = grid[oldKey];
         if (newKey != oldKey) grid[oldKey] = null;
     }
-
+    public void UpdateGrid(Vector2 key) => grid[key] = null;
 }

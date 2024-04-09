@@ -5,21 +5,18 @@ using UnityEngine;
 
 public class BlockConnector : BaseConnector
 {
+    [SerializeField] protected  Transform parentTransform;
     protected Transform startBlock;
     public Transform StartBlock => startBlock;
 
     protected Transform endBlock;
     public Transform EndBlock => endBlock;
 
-    protected override void ObjectConnect(Action callback)
+    protected override void ObjectConnect()
     {
-        base.ObjectConnect(() =>
-        {
-            blockCell = parentTransform.GetComponent<BlockCell>();
-            startBlock = parentTransform.GetChild(0);
-            endBlock = parentTransform.GetChild(2);
-            
-        });
+        if (parentTransform == null) return;
+        startBlock = parentTransform.GetChild(0);
+        endBlock = parentTransform.GetChild(2);
     }
     public void ConnectWithGrid()
     {
@@ -31,11 +28,8 @@ public class BlockConnector : BaseConnector
             blocksAndRopesController.GridManager.Grid[blockDatas[i].positionEndBlock] = blockCell[i].transform.GetChild(2);
         }
     }
-    public void SetBlock()
-    {
-        startBlock = null;
-        endBlock = null;
-    }
+    public void SetParentTransform(Transform target) { parentTransform = target?.parent; }
+    public void SetParentTransform() => parentTransform = null;
 }
 
 
