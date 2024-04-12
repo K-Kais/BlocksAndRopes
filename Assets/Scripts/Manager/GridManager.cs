@@ -39,6 +39,8 @@ public class GridManager : MonoBehaviour
         }
         gridParent.GetComponent<BoxCollider2D>().size = new Vector2(width, height);
         gridParent.GetComponent<BoxCollider2D>().offset = new Vector2((width % 2 == 0) ? 0.5f : 0, (height % 2 == 0) ? 0.5f : 0);
+        Camera.main.orthographicSize = width;
+        Camera.main.transform.position = new Vector3((width % 2 == 0) ? 0.5f : 0, 0, -10f);
         Debug.Log("Set Grid");
     }
 

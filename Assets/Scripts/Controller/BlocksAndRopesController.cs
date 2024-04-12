@@ -77,4 +77,8 @@ public class BlocksAndRopesController : MonoBehaviour
         this.blockSnap = FindObjectOfType<BlockSnap>();
         Debug.Log(transform.name + ": LoadBlockSnap", gameObject);
     }
+    public void bnt()
+    {
+        Debug.Log("?");
+    }
 }
